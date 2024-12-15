@@ -2,11 +2,13 @@
 
 #include <vector>
 
+//SDOF algorithms
 void ConstantAccelerationMethod(std::vector<double>& d, std::vector<double>& v, std::vector<double>& a,
 	const std::vector<double>& f, double d_i, double v_i, int numsteps, double delta_t, double m, double c, double k);
-
 void AverageAccelerationMethod(std::vector<double>& d, std::vector<double>& v, std::vector<double>& a,
 	const std::vector<double>& f, double d_i, double v_i, int numsteps, double delta_t, double m, double c, double k);
-
 void LinearAccelerationMethod(std::vector<double>& d, std::vector<double>& v, std::vector<double>& a,
 	const std::vector<double>& f, double d_i, double v_i, int numsteps, double delta_t, double m, double c, double k);
+
+//MDOF algorithms
+void ConstantAccelerationMethod(std::vector<std::vector<double>>& D, std::vector<std::vector<double>>& V, std::vector<std::vector<double>>& A,const std::vector<std::vector<double>>& F, std::vector<double>& D_i, std::vector<double>& V_i, int numsteps, double delta_t, std::vector<std::vector<double>> M, std::vector<std::vector<double>> C, std::vector<std::vector<double>> K, const int nodes);

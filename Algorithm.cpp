@@ -3,7 +3,7 @@
 
 #include "Algorithm.h"
 
-//implementation of constant, average, and linear acceleration methods of the general Newmark-Beta framework
+/* IMPLEMENTATION OF CONSTANT, AVERAGE, AND LINEAR ACCELERATION METHODS FOR SINGLE DEGREE OF FREEDOM SYSTEM */
 
 //constant acceleration for a single degree of freedom system
 void ConstantAccelerationMethod(std::vector<double>& d, std::vector<double>& v, std::vector<double>& a,
@@ -90,4 +90,17 @@ void LinearAccelerationMethod(std::vector<double>& d, std::vector<double>& v, st
 			a[i] = 6 / (delta_t * delta_t) * (d[i] - d[i - 1] - delta_t * v[i - 1]) - 2 * a[i-1];
 		}
 	}
+}
+
+/* IMPLEMENTATION OF MULTIPLE DEGREE OF FREEDOM ALGORITHMS */
+
+void ConstantAccelerationMethod(std::vector<std::vector<double>>& D, std::vector<std::vector<double>>& V, std::vector<std::vector<double>>& A, const std::vector<std::vector<double>>& F, std::vector<double>& D_i, std::vector<double>& V_i, int numsteps, double delta_t, std::vector<std::vector<double>> M, std::vector<std::vector<double>> C, std::vector<std::vector<double>> K, const int nodes) {
+	if (F[0].size() != numsteps) {
+		throw std::invalid_argument("Forcing function needs to be discretized to same number of points as numsteps");
+	}
+
+	D.resize(numsteps, std::vector<double>(nodes, 0.0));
+	V.resize(numsteps, std::vector<double>(nodes, 0.0));
+	A.resize(numsteps, std::vector<double>(nodes, 0.0));
+
 }
