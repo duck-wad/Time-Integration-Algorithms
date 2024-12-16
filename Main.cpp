@@ -78,7 +78,7 @@ void TestMDOF() {
 	std::vector<std::vector<double>> stiffness = {
 	{2.0e7, -1.0e7, 0.0},
 	{-1.0e7, 2.5e7, -0.5e7},
-	{0.0, -5e7, 0.5e7}
+	{0.0, -0.5e7, 0.5e7}
 	};
 	std::vector<std::vector<double>> damping = {
 	{5000.0, 0.0, 0.0},
@@ -93,12 +93,35 @@ void TestMDOF() {
 
 	ConstantAccelerationMethod(displacement, velocity, acceleration, force, initial_d, initial_v, numsteps, delta_t, mass, damping, stiffness, nodes);
 
+	std::vector<std::vector<double>> results;
+	results.push_back(time);
+	results.push_back(force_node);
+	results.push_back(transpose(displacement)[0]);
+	results.push_back(transpose(displacement)[1]);
+	results.push_back(transpose(displacement)[2]);
+
+	AverageAccelerationMethod(displacement, velocity, acceleration, force, initial_d, initial_v, numsteps, delta_t, mass, damping, stiffness, nodes);
+
+	results.push_back(time);
+	results.push_back(force_node);
+	results.push_back(transpose(displacement)[0]);
+	results.push_back(transpose(displacement)[1]);
+	results.push_back(transpose(displacement)[2]);
+
+	LinearAccelerationMethod(displacement, velocity, acceleration, force, initial_d, initial_v, numsteps, delta_t, mass, damping, stiffness, nodes);
+
+	results.push_back(time);
+	results.push_back(force_node);
+	results.push_back(transpose(displacement)[0]);
+	results.push_back(transpose(displacement)[1]);
+	results.push_back(transpose(displacement)[2]);
+
+	writeMatrixToCSV(transpose(results), "OUTPUT_MDOF.csv");
 }
 
 int main() {
 
-
-	//TestSDOF();
+	TestSDOF();
 	TestMDOF();
 
 	return 0;
