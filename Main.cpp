@@ -91,27 +91,24 @@ void TestMDOF() {
 	std::vector<std::vector<double>> acceleration(numsteps, std::vector<double>(3, 0.0));
 	int nodes = 3;
 
-	ConstantAccelerationMethod(displacement, velocity, acceleration, force, initial_d, initial_v, numsteps, delta_t, mass, damping, stiffness, nodes);
-
 	std::vector<std::vector<double>> results;
 	results.push_back(time);
 	results.push_back(force_node);
+
+	ConstantAccelerationMethod(displacement, velocity, acceleration, force, initial_d, initial_v, numsteps, delta_t, mass, damping, stiffness, nodes);
+
 	results.push_back(transpose(displacement)[0]);
 	results.push_back(transpose(displacement)[1]);
 	results.push_back(transpose(displacement)[2]);
 
 	AverageAccelerationMethod(displacement, velocity, acceleration, force, initial_d, initial_v, numsteps, delta_t, mass, damping, stiffness, nodes);
 
-	results.push_back(time);
-	results.push_back(force_node);
 	results.push_back(transpose(displacement)[0]);
 	results.push_back(transpose(displacement)[1]);
 	results.push_back(transpose(displacement)[2]);
 
 	LinearAccelerationMethod(displacement, velocity, acceleration, force, initial_d, initial_v, numsteps, delta_t, mass, damping, stiffness, nodes);
 
-	results.push_back(time);
-	results.push_back(force_node);
 	results.push_back(transpose(displacement)[0]);
 	results.push_back(transpose(displacement)[1]);
 	results.push_back(transpose(displacement)[2]);
